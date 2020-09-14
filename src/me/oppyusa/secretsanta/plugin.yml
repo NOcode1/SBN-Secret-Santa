@@ -1,0 +1,13 @@
+name: SecretSanta
+main: me.oppyusa.secretsanta.Main
+version: 1.0
+authors: [Oppyusa, Wsmnb_02]
+commands:
+   good:
+      usage: /good <player>
+      description: Put a player in the good list.
+      permission: secretsanta.use
+   secretsanta:
+      usage: /secretsanta
+      descriptions: Get the help command for Secret Santa.
+         
