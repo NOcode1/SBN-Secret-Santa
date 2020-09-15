@@ -1,6 +1,9 @@
 package me.oppyusa.secretsanta;
 
 import me.oppyusa.secretsanta.commands.MainCommand;
+
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,8 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-
     FileConfiguration config = this.getConfig();
+	
+	List<String> ConfigList = config.getStringList("node.path");
+
+
+
 
     public void onEnable() {
 
@@ -33,15 +40,12 @@ public class Main extends JavaPlugin {
             }
             else {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                try {
-	                player.sendMessage("Added your target to the good list.");
-	                config.addDefault("good", target.getName());
-	                config.options().copyDefaults(true);
-	                saveConfig();
-                }
-                finally {
-                	player.sendMessage("Target is offline.");
-                }
+	            player.sendMessage("Added your target to the good list.");
+	            // config.addDefault("good", target.getName());
+	            List<String> good = config.getStringList("good");
+                good.add(target.getName());
+                config.set("good", good);
+	            saveConfig();
             }
         }
         if (label.equalsIgnoreCase("bad")) {
@@ -50,17 +54,25 @@ public class Main extends JavaPlugin {
             }
             else {
                 Player target = Bukkit.getPlayerExact(args[0]);
-                try {
-	                player.sendMessage("Added your target to the good list.");
-	                config.addDefault("bad", target.getName());
-	                config.options().copyDefaults(true);
-	                saveConfig();
-                }
-                finally {
-                	player.sendMessage("Target is offline.");
-                }
+                player.sendMessage("Added your target to the bad list.");
+                // config.addDefault("bad", target.getName());
+                List<String> bad = config.getStringList("bad");
+                bad.add(target.getName());
+                config.set("bad", bad);
+            	saveConfig();
             }
         }
-        return false;
+        if (label.equalsIgnoreCase("naughty")) {
+        	for(String msg : getConfig().getStringList("bad")){
+        		player.sendMessage(msg);
+        	}
+        }
+        if (label.equalsIgnoreCase("nice")) {
+        	for(String msg : getConfig().getStringList("good")){
+        		player.sendMessage(msg);
+        	}
+        }
+        	
+        return true;
     }
 }
