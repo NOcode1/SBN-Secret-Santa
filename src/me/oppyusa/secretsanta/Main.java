@@ -34,40 +34,26 @@ public class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        if (label.equalsIgnoreCase("good")) {
-            if (args.length == 0) {
-                player.sendMessage("You must include the player to add to the good list.");
-            }
-            else {
-                Player target = Bukkit.getPlayerExact(args[0]);
-	            player.sendMessage("Added your target to the good list.");
-	            // config.addDefault("good", target.getName());
-	            List<String> good = config.getStringList("good");
-                good.add(target.getName());
-                config.set("good", good);
-	            saveConfig();
-            }
-        }
-        if (label.equalsIgnoreCase("bad")) {
-            if (args.length == 0) {
-                player.sendMessage("You must include the player to add to the good list.");
-            }
-            else {
-                Player target = Bukkit.getPlayerExact(args[0]);
-                player.sendMessage("Added your target to the bad list.");
-                // config.addDefault("bad", target.getName());
-                List<String> bad = config.getStringList("bad");
-                bad.add(target.getName());
-                config.set("bad", bad);
-            	saveConfig();
-            }
+        if (label.equalsIgnoreCase("nice")) {
+	        player.sendMessage("Added you to the nice list.");
+	        List<String> good = config.getStringList("good");
+            good.add(player.getName());
+            config.set("good", good);
+	        saveConfig();
         }
         if (label.equalsIgnoreCase("naughty")) {
+            player.sendMessage("Added you to the naughty list.");
+            List<String> bad = config.getStringList("bad");
+            bad.add(player.getName());
+            config.set("bad", bad);
+            saveConfig();
+        }
+        if (label.equalsIgnoreCase("naughtylist")) {
         	for(String msg : getConfig().getStringList("bad")){
         		player.sendMessage(msg);
         	}
         }
-        if (label.equalsIgnoreCase("nice")) {
+        if (label.equalsIgnoreCase("nicelist")) {
         	for(String msg : getConfig().getStringList("good")){
         		player.sendMessage(msg);
         	}
