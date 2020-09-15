@@ -4,10 +4,20 @@ version: 1.0
 authors: [Oppyusa, Wsmnb_02]
 commands:
    good:
-      usage: /good <player>
+      usage: /nice <player>
       description: Put a player in the good list.
-      permission: secretsanta.use
+   bad:
+      usage: /naughty <player>
+      description: Put a player in the bad list.
    secretsanta:
       usage: /secretsanta
       descriptions: Get the help command for Secret Santa.
+   nicelist:
+      usage: /nicelist
+      description: Lists the good list.
+      permission: secretsanta.list
+   naughtylist:
+      usage: /naughtylist
+      description: Lists the bad list.
+      permission: secretsanta.list      
          
